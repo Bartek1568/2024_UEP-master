@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/2024_UEP-master.iml" filepath="$PROJECT_DIR$/.idea/2024_UEP-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/2024_UEP-master/battle-gui/battle-gui.iml" filepath="$PROJECT_DIR$/2024_UEP-master/battle-gui/battle-gui.iml" />
+      <module fileurl="file://$PROJECT_DIR$/2024_UEP-master/battle-model/battle-model.iml" filepath="$PROJECT_DIR$/2024_UEP-master/battle-model/battle-model.iml" />
+      <module fileurl="file://$PROJECT_DIR$/2024_UEP-master/bundle.iml" filepath="$PROJECT_DIR$/2024_UEP-master/bundle.iml" />
+      <module fileurl="file://$PROJECT_DIR$/2024_UEP-master/eco-battle-converter/eco-battle-converter.iml" filepath="$PROJECT_DIR$/2024_UEP-master/eco-battle-converter/eco-battle-converter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/2024_UEP-master/economy-gui/economy-gui.iml" filepath="$PROJECT_DIR$/2024_UEP-master/economy-gui/economy-gui.iml" />
+      <module fileurl="file://$PROJECT_DIR$/2024_UEP-master/economy-model/economy-model.iml" filepath="$PROJECT_DIR$/2024_UEP-master/economy-model/economy-model.iml" />
+      <module fileurl="file://$PROJECT_DIR$/2024_UEP-master/hero-common/hero-common.iml" filepath="$PROJECT_DIR$/2024_UEP-master/hero-common/hero-common.iml" />
+    </modules>
+  </component>
+</project>
