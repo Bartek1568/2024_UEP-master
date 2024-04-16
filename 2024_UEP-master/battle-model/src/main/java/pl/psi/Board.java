@@ -1,7 +1,6 @@
 package pl.psi;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
@@ -13,6 +12,7 @@ import pl.psi.creatures.Creature;
  */
 public class Board
 {
+    //private static final Set<Point> obstacles = new HashSet<>();
     private static final int MAX_WITDH = 14;
     private final BiMap< Point, Creature > map = HashBiMap.create();
 
@@ -21,10 +21,6 @@ public class Board
         addCreatures( aCreatures1, 0 );
         addCreatures( aCreatures2, MAX_WITDH );
     }
-    public void randomFields(){
-
-    }
-
     private void addCreatures( final List< Creature > aCreatures, final int aXPosition )
     {
         for( int i = 0; i < aCreatures.size(); i++ )
@@ -50,7 +46,7 @@ public class Board
 
     boolean canMove( final Creature aCreature, final Point aPoint )
     {
-        if( map.containsKey( aPoint ) )
+        if( map.containsKey( aPoint ) || Obstacle.isObstacle(aPoint) )
         {
             return false;
         }

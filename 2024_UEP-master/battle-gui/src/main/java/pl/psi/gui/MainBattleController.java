@@ -9,9 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import pl.psi.GameEngine;
-import pl.psi.Hero;
-import pl.psi.Point;
+import pl.psi.*;
 import pl.psi.creatures.Creature;
 
 public class MainBattleController implements PropertyChangeListener
@@ -47,6 +45,9 @@ public class MainBattleController implements PropertyChangeListener
                 Optional< Creature > creature = gameEngine.getCreature( currentPoint );
                 final MapTile mapTile = new MapTile( "" );
                 creature.ifPresent( c -> mapTile.setName( c.toString() ) );
+                if ( gameEngine.isObstacle(currentPoint)) {
+                    mapTile.setBackground(Color.BLUE);
+                }
                 if( gameEngine.isCurrentCreature( currentPoint ) )
                 {
                     mapTile.setBackground( Color.GREENYELLOW );

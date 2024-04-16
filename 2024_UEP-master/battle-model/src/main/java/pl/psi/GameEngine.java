@@ -14,11 +14,14 @@ public class GameEngine {
     public static final String CREATURE_MOVED = "CREATURE_MOVED";
     private final TurnQueue turnQueue;
     private final Board board;
+    private final Obstacle obstacle;
     private final PropertyChangeSupport observerSupport = new PropertyChangeSupport(this);
+
 
     public  GameEngine(final Hero aHero1, final Hero aHero2) {
         turnQueue = new TurnQueue(aHero1.getCreatures(), aHero2.getCreatures());
         board = new Board(aHero1.getCreatures(), aHero2.getCreatures());
+        obstacle= new Obstacle();
     }
 
     public void attack(final Point point) {
@@ -27,10 +30,14 @@ public class GameEngine {
                         .attack(defender));
         pass();
     }
+    public boolean isObstacle(final Point aPoint){
+        return Obstacle.isObstacle(aPoint);
+    }
 
     public boolean canMove(final Point aPoint) {
-        return board.canMove(turnQueue.getCurrentCreature(), aPoint);
+            return board.canMove(turnQueue.getCurrentCreature(), aPoint);
     }
+
 
     public void move(final Point aPoint) {
         board.move(turnQueue.getCurrentCreature(), aPoint);
