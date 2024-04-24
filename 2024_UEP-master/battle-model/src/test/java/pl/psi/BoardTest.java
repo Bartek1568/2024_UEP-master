@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import pl.psi.creatures.Creature;
 import pl.psi.creatures.CreatureStats;
+import pl.psi.obstacles.Obstacle;
 
 class BoardTest
 {
@@ -20,7 +21,9 @@ class BoardTest
             .build();
         final List< Creature > c1 = List.of( creature );
         final List< Creature > c2 = List.of();
-        final Board board = new Board( c1, c2 );
+        final Obstacle obstacle = new Obstacle();
+
+        final Board board = new Board( c1, c2, obstacle);
 
         board.move( creature, new Point( 3, 3 ) );
 

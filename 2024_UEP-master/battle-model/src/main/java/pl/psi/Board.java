@@ -15,12 +15,18 @@ public class Board
 {
     private static final int MAX_WITDH = 14;
     private final BiMap< Point, Creature > map = HashBiMap.create();
+    private final Obstacle obstacle;
 
-    public Board( final List< Creature > aCreatures1, final List< Creature > aCreatures2 )
+
+
+    public Board( final List< Creature > aCreatures1, final List< Creature > aCreatures2, Obstacle obstacle )
     {
         addCreatures( aCreatures1, 0 );
         addCreatures( aCreatures2, MAX_WITDH );
+        this.obstacle = obstacle;
     }
+
+
     private void addCreatures( final List< Creature > aCreatures, final int aXPosition )
     {
         for( int i = 0; i < aCreatures.size(); i++ )
@@ -44,9 +50,11 @@ public class Board
         }
     }
 
+    //addObstacle
+
     boolean canMove( final Creature aCreature, final Point aPoint )
     {
-        if( map.containsKey( aPoint ) || Obstacle.isObstacle(aPoint) )
+        if( map.containsKey( aPoint ) || obstacle.isObstacle(aPoint) )
         {
             return false;
         }

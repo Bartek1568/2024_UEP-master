@@ -25,32 +25,36 @@ class ObstacleTest {
                 .build();
         final List< Creature > c1 = List.of( creature );
         final List< Creature > c2 = List.of();
-        final Board board = new Board( c1, c2 );
+        final Obstacle obstacle = new Obstacle();
+        final Board board = new Board( c1, c2,obstacle );
 
-        Obstacle.addObstacleManually(3, 3);
+
+        obstacle.addObstacleManually(3, 3);
         board.move( creature, new Point( 3, 3 ) );
 
-        assertTrue(Obstacle.isObstacle(new Point(3,3)));
-        assertFalse( board.getCreature( new Point( 3, 3 ) )
-                .isPresent() );
+        assertTrue(obstacle.isObstacle(new Point(3,3)));
+        assertFalse(board.getCreature( new Point( 3, 3 ) )
+            .isPresent() );
     }
 
     @Test
     void eachObstacleIsCorrectlyAdded() {
-        Obstacle.addRandomObstacles(10, 14, 9);
-        HashSet<Point> obstacles = Obstacle.getObstacles();
+        final Obstacle obstacle = new Obstacle();
+        obstacle.addRandomObstacles(10, 14, 9);
+        HashSet<Point> obstacles = obstacle.getObstacles();
 
-        for (Point obstacle : obstacles) {
-            assertTrue(Obstacle.isObstacle(obstacle));
+        for (Point obstacle1 : obstacles) {
+            assertTrue(obstacle.isObstacle(obstacle1));
         }
     }
 
     @Test
     void startingPointIsNotObstacle(){
-        Obstacle.addObstacleManually(0,1);
-        Obstacle.addObstacleManually(14,1);
-        assertFalse(Obstacle.isObstacle(new Point(0,1)));
-        assertFalse(Obstacle.isObstacle(new Point(14,1)));
+        final Obstacle obstacle = new Obstacle();
+        obstacle.addObstacleManually(0,1);
+        obstacle.addObstacleManually(14,1);
+        assertFalse(obstacle.isObstacle(new Point(0,1)));
+        assertFalse(obstacle.isObstacle(new Point(14,1)));
 
 
     }

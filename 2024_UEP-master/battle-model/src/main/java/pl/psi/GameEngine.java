@@ -20,9 +20,10 @@ public class GameEngine {
 
 
     public  GameEngine(final Hero aHero1, final Hero aHero2) {
+        this.obstacle = new Obstacle();
         turnQueue = new TurnQueue(aHero1.getCreatures(), aHero2.getCreatures());
-        board = new Board(aHero1.getCreatures(), aHero2.getCreatures());
-        obstacle= new Obstacle();
+        board = new Board(aHero1.getCreatures(), aHero2.getCreatures(), obstacle);
+
     }
 
     public void attack(final Point point) {
@@ -32,10 +33,14 @@ public class GameEngine {
         pass();
     }
     public boolean isObstacle(final Point aPoint){
-        return Obstacle.isObstacle(aPoint);
+        return obstacle.isObstacle(aPoint);
     }
 
     public boolean canMove(final Point aPoint) {
+        if(obstacle.isObstacle(aPoint) )
+        {
+            return false;
+        }
             return board.canMove(turnQueue.getCurrentCreature(), aPoint);
     }
 
