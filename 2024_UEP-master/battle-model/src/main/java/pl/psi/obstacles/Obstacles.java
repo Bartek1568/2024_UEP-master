@@ -31,7 +31,6 @@ public class Obstacles {
         }
     }
     public  boolean isObstacle(Point point) {
-
         return obstacles.containsKey(point);
     }
 

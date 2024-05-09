@@ -35,9 +35,19 @@ public class GameEngine {
     public boolean isObstacle(final Point aPoint){
         return obstacle.isObstacle(aPoint);
     }
+    public boolean isPointAnObject(Point aPoint) {
+
+        if (board.getCreature(aPoint).isPresent()) {
+            return true;
+        } else if (obstacle.isObstacle(aPoint)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     public boolean canMove(final Point aPoint) {
-        if(obstacle.isObstacle(aPoint) )
+        if(isPointAnObject(aPoint) )
         {
             return false;
         }
@@ -74,4 +84,5 @@ public class GameEngine {
     public boolean isCurrentCreature(Point aPoint) {
         return Optional.of(turnQueue.getCurrentCreature()).equals(board.getCreature(aPoint));
     }
+
 }

@@ -52,10 +52,6 @@ public class Board
 
     boolean canMove( final Creature aCreature, final Point aPoint )
     {
-        if( map.containsKey( aPoint ) || obstacle.isObstacle(aPoint) )
-        {
-            return false;
-        }
         final Point oldPosition = getPosition( aCreature );
         return aPoint.distance( oldPosition.getX(), oldPosition.getY() ) < aCreature.getMoveRange();
     }
