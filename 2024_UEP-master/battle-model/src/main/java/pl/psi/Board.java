@@ -6,27 +6,27 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 
 import pl.psi.creatures.Creature;
-import pl.psi.obstacles.Obstacle;
+import pl.psi.obstacles.Obstacles;
+
+
 
 /**
  * TODO: Describe this class (The first line - until the first dot - will interpret as the brief description).
  */
 public class Board
 {
-    private static final int MAX_WITDH = 14;
+    public static final int MAX_WITDH = 14;
     private final BiMap< Point, Creature > map = HashBiMap.create();
-    private final Obstacle obstacle;
+    private final Obstacles obstacle;
 
 
 
-    public Board( final List< Creature > aCreatures1, final List< Creature > aCreatures2, Obstacle obstacle )
+    public Board( final List< Creature > aCreatures1, final List< Creature > aCreatures2, Obstacles obstacle )
     {
         addCreatures( aCreatures1, 0 );
         addCreatures( aCreatures2, MAX_WITDH );
         this.obstacle = obstacle;
     }
-
-
     private void addCreatures( final List< Creature > aCreatures, final int aXPosition )
     {
         for( int i = 0; i < aCreatures.size(); i++ )
@@ -49,8 +49,6 @@ public class Board
             map.put( aPoint, aCreature );
         }
     }
-
-    //addObstacle
 
     boolean canMove( final Creature aCreature, final Point aPoint )
     {

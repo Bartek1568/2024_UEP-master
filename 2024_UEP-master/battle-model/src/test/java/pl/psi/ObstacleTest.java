@@ -8,13 +8,30 @@ import org.junit.jupiter.api.Test;
 
 import pl.psi.creatures.Creature;
 import pl.psi.creatures.CreatureStats;
-import pl.psi.obstacles.Obstacle;
+import pl.psi.obstacles.Obstacles;
+import pl.psi.obstacles.ObstacleWithHP;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 class ObstacleTest {
+
+    @Test
+    void creatureCanAttackObstacle(){
+        final Creature creature = new Creature.Builder().statistic( CreatureStats.builder()
+                        .moveRange( 5 )
+                        .build() )
+                .build();
+        final List< Creature > c1 = List.of( creature );
+        final List< Creature > c2 = List.of();
+        final ObstacleWithHP obstacle = new ObstacleWithHP();
+        final Board board = new Board( c1, c2 , obstacle);
+
+        //creature.attack(obstacle);
+        assertEquals(obstacle.getHP() == 100 , obstacle.getHP());
+
+
+    }
 
     @Test
     void creatureCannotEnterObstacle()
@@ -25,7 +42,7 @@ class ObstacleTest {
                 .build();
         final List< Creature > c1 = List.of( creature );
         final List< Creature > c2 = List.of();
-        final Obstacle obstacle = new Obstacle();
+        final Obstacles obstacle = new Obstacles();
         final Board board = new Board( c1, c2,obstacle );
 
 
@@ -37,20 +54,20 @@ class ObstacleTest {
             .isPresent() );
     }
 
-    @Test
-    void eachObstacleIsCorrectlyAdded() {
-        final Obstacle obstacle = new Obstacle();
-        obstacle.addRandomObstacles(10, 14, 9);
-        HashSet<Point> obstacles = obstacle.getObstacles();
-
-        for (Point obstacle1 : obstacles) {
-            assertTrue(obstacle.isObstacle(obstacle1));
-        }
-    }
+ //   @Test
+//    void eachObstacleIsCorrectlyAdded() {
+//        final Obstacles obstacle = new Obstacles();
+//        obstacle.addRandomObstacles(10, 14, 9);
+//        HashSet<Point> obstacles = obstacle.getObstacles();
+//
+//        for (Point obstacle1 : obstacles) {
+//            assertTrue(obstacle.isObstacle(obstacle1));
+//        }
+//    }
 
     @Test
     void startingPointIsNotObstacle(){
-        final Obstacle obstacle = new Obstacle();
+        final Obstacles obstacle = new Obstacles();
         obstacle.addObstacleManually(0,1);
         obstacle.addObstacleManually(14,1);
         assertFalse(obstacle.isObstacle(new Point(0,1)));

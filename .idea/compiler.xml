@@ -15,14 +15,5 @@
         <module name="economy-gui" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="battle-gui" target="11" />
-      <module name="battle-model" target="11" />
-      <module name="bundle" target="11" />
-      <module name="eco-battle-converter" target="11" />
-      <module name="economy-gui" target="11" />
-      <module name="economy-model" target="11" />
-      <module name="hero-common" target="11" />
-    </bytecodeTargetLevel>
   </component>
 </project>
