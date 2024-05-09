@@ -6,6 +6,9 @@ import java.util.Optional;
 
 import pl.psi.creatures.Creature;
 import pl.psi.obstacles.Obstacles;
+import pl.psi.obstacles.ObstacleWithHP;
+import pl.psi.obstacles.ObstaclesIF;
+
 
 /**
  * TODO: Describe this class (The first line - until the first dot - will interpret as the brief description).
@@ -16,24 +19,34 @@ public class GameEngine {
     private final TurnQueue turnQueue;
     private final Board board;
     private final Obstacles obstacle;
+    private ObstacleWithHP obstacleWithHP;
     private final PropertyChangeSupport observerSupport = new PropertyChangeSupport(this);
 
 
     public  GameEngine(final Hero aHero1, final Hero aHero2) {
         this.obstacle = new Obstacles();
+        this.obstacleWithHP = new ObstacleWithHP(ObstaclesIF.maxHP);
         turnQueue = new TurnQueue(aHero1.getCreatures(), aHero2.getCreatures());
-        board = new Board(aHero1.getCreatures(), aHero2.getCreatures(), obstacle);
+        board = new Board(aHero1.getCreatures(), aHero2.getCreatures(), obstacle,obstacleWithHP);
 
     }
 
     public void attack(final Point point) {
-        board.getCreature(point)
-                .ifPresent(defender -> turnQueue.getCurrentCreature()
-                        .attack(defender));
+        if (obstacleWithHP.isObstacleWithHP(point)) {
+            turnQueue.getCurrentCreature().attackObstacle(obstacleWithHP, point);
+        } else {
+            board.getCreature(point)
+                    .ifPresent(defender -> turnQueue.getCurrentCreature()
+                            .attack(defender));
+        }
         pass();
     }
+
     public boolean isObstacle(final Point aPoint){
         return obstacle.isObstacle(aPoint);
+    }
+    public boolean isObstacleWithHP(final Point aPoint){
+        return obstacle.isObstacleWithHP(aPoint);
     }
     public boolean isPointAnObject(Point aPoint) {
 
@@ -41,7 +54,10 @@ public class GameEngine {
             return true;
         } else if (obstacle.isObstacle(aPoint)) {
             return true;
-        } else {
+        } else if(obstacle.isObstacleWithHP(aPoint)){
+            return true;
+        }
+        else {
             return false;
         }
     }
@@ -76,9 +92,15 @@ public class GameEngine {
     public boolean canAttack(final Point point) {
         double distance = board.getPosition(turnQueue.getCurrentCreature())
                 .distance(point);
-        return board.getCreature(point)
-                .isPresent()
-                && distance < 2 && distance > 0;
+        if (board.getCreature(point).isPresent()) {
+            return distance < 2 && distance > 0;
+        }
+
+        if (obstacle.isObstacleWithHP(point)) {
+            return distance < 2 && distance > 0;
+        }
+
+        return false;
     }
 
     public boolean isCurrentCreature(Point aPoint) {

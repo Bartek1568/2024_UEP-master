@@ -5,14 +5,17 @@ import pl.psi.Point;
 import java.util.HashMap;
 import java.util.Random;
 
-import static pl.psi.Board.MAX_WITDH;
 
 
-public class Obstacles {
-    private static final int MAX_HEIGHT = 9;
+public class Obstacles implements ObstaclesIF {
+
     private  final HashMap<Point,Obstacle> obstacles = new HashMap<>();
+    ObstacleWithHP obstacleWithHP = new ObstacleWithHP(maxHP);
+
     public Obstacles(){
-        addRandomObstacles(10,MAX_WITDH,MAX_HEIGHT);
+        addRandomObstacles(8,MAX_WITDH,MAX_HEIGHT);
+        obstacleWithHP.addRandomObstaclesWithHP(2,MAX_WITDH,MAX_HEIGHT);
+
     }
 
      public void addRandomObstacles(int amount, int maxWidth, int maxHeight) {
@@ -30,13 +33,19 @@ public class Obstacles {
             obstacles.put(new Point(x, y),new Obstacle());
         }
     }
+
     public  boolean isObstacle(Point point) {
         return obstacles.containsKey(point);
     }
+    public boolean isObstacleWithHP(final Point aPoint){
+        return obstacleWithHP.isObstacleWithHP(aPoint);
+    }
+
+
 
     public  void addObstacleManually(int x, int y){
         if((x != 0 && y != 1) || (x != 14 && y != 1)){
-            obstacles.put(new Point(x,y),null);
+            obstacles.put(new Point(x,y),new Obstacle());
         }
 
     }

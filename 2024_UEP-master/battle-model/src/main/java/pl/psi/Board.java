@@ -6,6 +6,7 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 
 import pl.psi.creatures.Creature;
+import pl.psi.obstacles.ObstacleWithHP;
 import pl.psi.obstacles.Obstacles;
 
 
@@ -15,18 +16,23 @@ import pl.psi.obstacles.Obstacles;
  */
 public class Board
 {
-    public static final int MAX_WITDH = 14;
+    private static final int MAX_WITDH = 14;
     private final BiMap< Point, Creature > map = HashBiMap.create();
     private final Obstacles obstacle;
+    private final ObstacleWithHP obstacleWithHP;
 
 
 
-    public Board( final List< Creature > aCreatures1, final List< Creature > aCreatures2, Obstacles obstacle )
+
+    public Board( final List< Creature > aCreatures1, final List< Creature > aCreatures2,
+                  Obstacles obstacle, ObstacleWithHP obstacleWithHP )
     {
         addCreatures( aCreatures1, 0 );
         addCreatures( aCreatures2, MAX_WITDH );
         this.obstacle = obstacle;
+        this.obstacleWithHP = obstacleWithHP;
     }
+
     private void addCreatures( final List< Creature > aCreatures, final int aXPosition )
     {
         for( int i = 0; i < aCreatures.size(); i++ )
@@ -42,11 +48,12 @@ public class Board
 
     void move( final Creature aCreature, final Point aPoint )
     {
-        if( canMove( aCreature, aPoint ) )
+        if (canMove(aCreature, aPoint))
         {
-            map.inverse()
-                .remove( aCreature );
-            map.put( aPoint, aCreature );
+            if (!obstacle.isObstacle(aPoint) && !obstacleWithHP.isObstacleWithHP(aPoint)) {
+                map.inverse().remove(aCreature);
+                map.put(aPoint, aCreature);
+            }
         }
     }
 

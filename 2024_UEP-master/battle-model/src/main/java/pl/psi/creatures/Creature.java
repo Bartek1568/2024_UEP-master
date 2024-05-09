@@ -11,11 +11,13 @@ import java.beans.PropertyChangeListener;
 import java.util.Random;
 
 import lombok.Setter;
+import pl.psi.Point;
 import pl.psi.TurnQueue;
 
 import com.google.common.collect.Range;
 
 import lombok.Getter;
+import pl.psi.obstacles.ObstacleWithHP;
 
 /**
  * TODO: Describe this class (The first line - until the first dot - will interpret as the brief description).
@@ -47,6 +49,13 @@ public class Creature implements PropertyChangeListener {
             if (canCounterAttack(aDefender)) {
                 counterAttack(aDefender);
             }
+        }
+    }
+
+    public void attackObstacle(ObstacleWithHP obstacleWithHP, Point point) {
+        if (isAlive()) {
+            final int damage = getCalculator().calculateDamage(this,obstacleWithHP);
+            obstacleWithHP.takeDamage(point,damage);
         }
     }
 

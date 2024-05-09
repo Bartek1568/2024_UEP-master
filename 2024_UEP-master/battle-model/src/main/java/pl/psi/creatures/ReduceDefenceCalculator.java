@@ -1,5 +1,7 @@
 package pl.psi.creatures;
 
+import pl.psi.obstacles.ObstacleWithHP;
+
 import java.util.Random;
 
 /**
@@ -20,5 +22,10 @@ class ReduceDefenceCalculator extends AbstractCalculateDamageStrategy
     protected int getArmor( final Creature aDefender )
     {
         return (int)(aDefender.getArmor() * factor);
+    }
+
+    @Override
+    public int calculateDamage(Creature aAttacker, ObstacleWithHP obstacleWithHP) {
+        return 0;
     }
 }
