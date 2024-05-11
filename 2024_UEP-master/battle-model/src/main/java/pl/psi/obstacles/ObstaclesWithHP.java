@@ -1,12 +1,7 @@
 package pl.psi.obstacles;
 
 
-import pl.psi.Point;
-import java.util.HashMap;
-import java.util.Random;
-
-
-public class ObstacleWithHP implements ObstaclesIF {
+public class ObstaclesWithHP implements ObstaclesIF {
 
     private int maxHp;
     private int currentHp;
@@ -14,7 +9,7 @@ public class ObstacleWithHP implements ObstaclesIF {
 
 
 
-    public ObstacleWithHP(int maxHp) {
+    public ObstaclesWithHP(int maxHp) {
         this.maxHp = maxHp;
         this.currentHp = maxHp;
 

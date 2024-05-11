@@ -5,9 +5,6 @@ import java.beans.PropertyChangeSupport;
 import java.util.Optional;
 
 import pl.psi.creatures.Creature;
-import pl.psi.obstacles.Obstacles;
-import pl.psi.obstacles.ObstacleWithHP;
-import pl.psi.obstacles.ObstaclesIF;
 
 
 /**

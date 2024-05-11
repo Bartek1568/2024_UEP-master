@@ -1,6 +1,6 @@
 package pl.psi.creatures;
 
-import pl.psi.obstacles.ObstacleWithHP;
+import pl.psi.obstacles.ObstaclesWithHP;
 
 import java.util.Random;
 
@@ -15,7 +15,7 @@ class DefaultDamageCalculator extends AbstractCalculateDamageStrategy
     }
 
     @Override
-    public int calculateDamage(Creature attacker, ObstacleWithHP obstacle) {
+    public int calculateDamage(Creature attacker, ObstaclesWithHP obstacle) {
         return attacker.getAttack();
     }
 }

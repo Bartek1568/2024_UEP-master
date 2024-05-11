@@ -1,10 +1,9 @@
 package pl.psi.creatures;
 
-import pl.psi.obstacles.ObstacleWithHP;
-import pl.psi.obstacles.Obstacles;
+import pl.psi.obstacles.ObstaclesWithHP;
 
 public interface DamageCalculatorIf
 {
     int calculateDamage( Creature aAttacker, Creature aDefender );
-    int calculateDamage(Creature aAttacker, ObstacleWithHP obstacleWithHP);
+    int calculateDamage(Creature aAttacker, ObstaclesWithHP obstaclesWithHP);
 }

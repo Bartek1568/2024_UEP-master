@@ -7,8 +7,7 @@ import com.google.common.collect.HashBiMap;
 
 import pl.psi.creatures.Creature;
 import pl.psi.obstacles.Obstacle;
-import pl.psi.obstacles.ObstacleWithHP;
-import pl.psi.obstacles.Obstacles;
+import pl.psi.obstacles.ObstaclesWithHP;
 
 import static pl.psi.obstacles.ObstaclesIF.MAX_HEIGHT;
 
@@ -20,8 +19,8 @@ public class Board
 {
     private static final int MAX_WITDH = 14;
     private final BiMap< Point, Creature > map = HashBiMap.create();
-    private  final HashMap<Point,ObstacleWithHP> obstaclesWithHP = new HashMap<>();
-    private  final HashMap<Point, Obstacle> obstacles = new HashMap<>();
+    private  final HashMap<Point, ObstaclesWithHP> obstaclesWithHPMap = new HashMap<>();
+    private  final HashMap<Point, Obstacle> regularObstaclesMap = new HashMap<>();
 
 
 
@@ -31,38 +30,35 @@ public class Board
     {
         addCreatures( aCreatures1, 0 );
         addCreatures( aCreatures2, MAX_WITDH );
-        addRandomObstaclesWithHP();
         addRandomObstacles();
     }
 
-     void addRandomObstaclesWithHP() {
+    void addRandomObstacles() {
         Random random = new Random();
 
-        while (obstaclesWithHP.size() < 2) {
+
+        while (regularObstaclesMap.size() < 8) {
             int x = random.nextInt(MAX_WITDH);
             int y = random.nextInt(MAX_HEIGHT);
+            Point point = new Point(x, y);
 
-            while (x == 0 && y == 1) {
-                x = random.nextInt(MAX_WITDH);
-                y = random.nextInt(MAX_HEIGHT);
+            if (!regularObstaclesMap.containsKey(point) && !obstaclesWithHPMap.containsKey(point)) {
+                regularObstaclesMap.put(point, new Obstacle());
             }
-            obstaclesWithHP.put(new Point(x, y),new ObstacleWithHP(1));
         }
-    }
-     void addRandomObstacles() {
-        Random random = new Random();
 
-        while (obstacles.size() < 9 ) {
+        // Add obstacles with HP
+        while (obstaclesWithHPMap.size() < 2) {
             int x = random.nextInt(MAX_WITDH);
             int y = random.nextInt(MAX_HEIGHT);
+            Point point = new Point(x, y);
 
-            while (x == 0 && y == 1 )  {
-                x = random.nextInt(MAX_WITDH);
-                y = random.nextInt(MAX_HEIGHT);
+            if (!obstaclesWithHPMap.containsKey(point) && !regularObstaclesMap.containsKey(point)) {
+                obstaclesWithHPMap.put(point, new ObstaclesWithHP(1));
             }
-            obstacles.put(new Point(x, y),new Obstacle());
         }
     }
+
 
     private void addCreatures( final List< Creature > aCreatures, final int aXPosition )
     {
@@ -90,7 +86,7 @@ public class Board
 
     boolean canMove( final Creature aCreature, final Point aPoint )
     {
-        if(obstacles.containsKey(aPoint) || obstaclesWithHP.containsKey(aPoint)){
+        if(regularObstaclesMap.containsKey(aPoint) || obstaclesWithHPMap.containsKey(aPoint)){
             return  false;
         }
         final Point oldPosition = getPosition( aCreature );
@@ -105,11 +101,11 @@ public class Board
     }
 
     public boolean isObstacleWithHP(Point aPoint) {
-        return obstaclesWithHP.containsKey(aPoint);
+        return obstaclesWithHPMap.containsKey(aPoint);
 
     }
     public boolean isObstacle(Point aPoint) {
-        return obstacles.containsKey(aPoint);
+        return regularObstaclesMap.containsKey(aPoint);
 
     }
 }
