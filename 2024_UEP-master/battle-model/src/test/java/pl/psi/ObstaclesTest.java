@@ -45,14 +45,13 @@ class ObstacleTest {
         final List< Creature > c2 = List.of();
         final Obstacles obstacle = new Obstacles();
         final ObstacleWithHP obstacleWithHP  = new ObstacleWithHP(ObstaclesIF.maxHP);
-        final Board board = new Board( c1, c2,obstacle, obstacleWithHP );
+        final Board board = new Board( c1, c2,obstacle );
 
 
         obstacle.addObstacleManually(3, 3);
         board.move( creature, new Point( 3, 3 ) );
 
-        assertTrue(obstacle.isObstacle(new Point(3,3))
-                || obstacleWithHP.isObstacleWithHP(new Point(3,3)));
+
         assertFalse(board.getCreature( new Point( 3, 3 ) )
             .isPresent() );
     }

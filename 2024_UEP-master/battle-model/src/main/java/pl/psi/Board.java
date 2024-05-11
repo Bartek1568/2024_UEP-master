@@ -9,6 +9,7 @@ import pl.psi.creatures.Creature;
 import pl.psi.obstacles.ObstacleWithHP;
 import pl.psi.obstacles.Obstacles;
 
+import static pl.psi.obstacles.ObstaclesIF.MAX_HEIGHT;
 
 
 /**
@@ -19,18 +20,33 @@ public class Board
     private static final int MAX_WITDH = 14;
     private final BiMap< Point, Creature > map = HashBiMap.create();
     private final Obstacles obstacle;
-    private final ObstacleWithHP obstacleWithHP;
+    private  final HashMap<Point,ObstacleWithHP> obstaclesWithHP = new HashMap<>();
 
 
 
 
     public Board( final List< Creature > aCreatures1, final List< Creature > aCreatures2,
-                  Obstacles obstacle, ObstacleWithHP obstacleWithHP )
+                  Obstacles obstacle )
     {
         addCreatures( aCreatures1, 0 );
         addCreatures( aCreatures2, MAX_WITDH );
         this.obstacle = obstacle;
-        this.obstacleWithHP = obstacleWithHP;
+        addRandomObstaclesWithHP(2);
+    }
+
+    public void addRandomObstaclesWithHP(int amount) {
+        Random random = new Random();
+
+        while (obstaclesWithHP.size() < amount) {
+            int x = random.nextInt(MAX_WITDH);
+            int y = random.nextInt(MAX_HEIGHT);
+
+            while (x == 0 && y == 1) {
+                x = random.nextInt(MAX_WITDH);
+                y = random.nextInt(MAX_HEIGHT);
+            }
+            obstaclesWithHP.put(new Point(x, y),new ObstacleWithHP(1));
+        }
     }
 
     private void addCreatures( final List< Creature > aCreatures, final int aXPosition )
@@ -50,22 +66,31 @@ public class Board
     {
         if (canMove(aCreature, aPoint))
         {
-            if (!obstacle.isObstacle(aPoint) && !obstacleWithHP.isObstacleWithHP(aPoint)) {
+
                 map.inverse().remove(aCreature);
                 map.put(aPoint, aCreature);
-            }
+
         }
     }
 
     boolean canMove( final Creature aCreature, final Point aPoint )
     {
+        if(obstacle.isObstacle(aPoint) || obstaclesWithHP.containsKey(aPoint)){
+            return  false;
+        }
         final Point oldPosition = getPosition( aCreature );
         return aPoint.distance( oldPosition.getX(), oldPosition.getY() ) < aCreature.getMoveRange();
+
     }
 
     Point getPosition( Creature aCreature )
     {
         return map.inverse()
             .get( aCreature );
+    }
+
+    public boolean isObstacleWithHP(Point aPoint) {
+        return obstaclesWithHP.containsKey(aPoint);
+
     }
 }

@@ -26,7 +26,7 @@ class BoardTest
         final ObstacleWithHP obstacleWithHP = new ObstacleWithHP(100);
 
 
-        final Board board = new Board( c1, c2, obstacle,obstacleWithHP);
+        final Board board = new Board( c1, c2, obstacle);
 
         board.move( creature, new Point( 3, 3 ) );
 

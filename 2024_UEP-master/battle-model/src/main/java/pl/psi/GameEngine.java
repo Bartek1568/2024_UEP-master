@@ -19,26 +19,24 @@ public class GameEngine {
     private final TurnQueue turnQueue;
     private final Board board;
     private final Obstacles obstacle;
-    private ObstacleWithHP obstacleWithHP;
+
     private final PropertyChangeSupport observerSupport = new PropertyChangeSupport(this);
 
 
     public  GameEngine(final Hero aHero1, final Hero aHero2) {
         this.obstacle = new Obstacles();
-        this.obstacleWithHP = new ObstacleWithHP(ObstaclesIF.maxHP);
+
         turnQueue = new TurnQueue(aHero1.getCreatures(), aHero2.getCreatures());
-        board = new Board(aHero1.getCreatures(), aHero2.getCreatures(), obstacle,obstacleWithHP);
+        board = new Board(aHero1.getCreatures(), aHero2.getCreatures(), obstacle);
 
     }
 
     public void attack(final Point point) {
-        if (obstacleWithHP.isObstacleWithHP(point)) {
-            turnQueue.getCurrentCreature().attackObstacle(obstacleWithHP, point);
-        } else {
+
             board.getCreature(point)
                     .ifPresent(defender -> turnQueue.getCurrentCreature()
                             .attack(defender));
-        }
+
         pass();
     }
 
@@ -46,15 +44,13 @@ public class GameEngine {
         return obstacle.isObstacle(aPoint);
     }
     public boolean isObstacleWithHP(final Point aPoint){
-        return obstacle.isObstacleWithHP(aPoint);
+        return board.isObstacleWithHP(aPoint);
     }
     public boolean isPointAnObject(Point aPoint) {
 
         if (board.getCreature(aPoint).isPresent()) {
             return true;
         } else if (obstacle.isObstacle(aPoint)) {
-            return true;
-        } else if(obstacle.isObstacleWithHP(aPoint)){
             return true;
         }
         else {
@@ -96,9 +92,9 @@ public class GameEngine {
             return distance < 2 && distance > 0;
         }
 
-        if (obstacle.isObstacleWithHP(point)) {
-            return distance < 2 && distance > 0;
-        }
+//        if (obstacle.isObstacleWithHP(point)) {
+//            return distance < 2 && distance > 0;
+//        }
 
         return false;
     }

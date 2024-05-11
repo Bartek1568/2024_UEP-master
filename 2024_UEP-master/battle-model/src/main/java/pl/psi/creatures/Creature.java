@@ -55,7 +55,7 @@ public class Creature implements PropertyChangeListener {
     public void attackObstacle(ObstacleWithHP obstacleWithHP, Point point) {
         if (isAlive()) {
             final int damage = getCalculator().calculateDamage(this,obstacleWithHP);
-            obstacleWithHP.takeDamage(point,damage);
+      //      obstacleWithHP.takeDamage(point,damage);
         }
     }
 

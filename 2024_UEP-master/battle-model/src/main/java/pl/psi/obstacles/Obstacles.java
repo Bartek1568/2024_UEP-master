@@ -10,11 +10,11 @@ import java.util.Random;
 public class Obstacles implements ObstaclesIF {
 
     private  final HashMap<Point,Obstacle> obstacles = new HashMap<>();
-    ObstacleWithHP obstacleWithHP = new ObstacleWithHP(maxHP);
+
 
     public Obstacles(){
         addRandomObstacles(8,MAX_WITDH,MAX_HEIGHT);
-        obstacleWithHP.addRandomObstaclesWithHP(2,MAX_WITDH,MAX_HEIGHT);
+
 
     }
 
@@ -37,9 +37,7 @@ public class Obstacles implements ObstaclesIF {
     public  boolean isObstacle(Point point) {
         return obstacles.containsKey(point);
     }
-    public boolean isObstacleWithHP(final Point aPoint){
-        return obstacleWithHP.isObstacleWithHP(aPoint);
-    }
+
 
 
 
