@@ -18,16 +18,14 @@ public class GameEngine {
     public static final String CREATURE_MOVED = "CREATURE_MOVED";
     private final TurnQueue turnQueue;
     private final Board board;
-    private final Obstacles obstacle;
 
     private final PropertyChangeSupport observerSupport = new PropertyChangeSupport(this);
 
 
     public  GameEngine(final Hero aHero1, final Hero aHero2) {
-        this.obstacle = new Obstacles();
 
         turnQueue = new TurnQueue(aHero1.getCreatures(), aHero2.getCreatures());
-        board = new Board(aHero1.getCreatures(), aHero2.getCreatures(), obstacle);
+        board = new Board(aHero1.getCreatures(), aHero2.getCreatures());
 
     }
 
@@ -41,7 +39,7 @@ public class GameEngine {
     }
 
     public boolean isObstacle(final Point aPoint){
-        return obstacle.isObstacle(aPoint);
+        return board.isObstacle(aPoint);
     }
     public boolean isObstacleWithHP(final Point aPoint){
         return board.isObstacleWithHP(aPoint);
@@ -50,7 +48,7 @@ public class GameEngine {
 
         if (board.getCreature(aPoint).isPresent()) {
             return true;
-        } else if (obstacle.isObstacle(aPoint)) {
+        } else if (board.isObstacle(aPoint)) {
             return true;
         }
         else {

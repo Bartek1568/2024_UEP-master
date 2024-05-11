@@ -6,6 +6,7 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 
 import pl.psi.creatures.Creature;
+import pl.psi.obstacles.Obstacle;
 import pl.psi.obstacles.ObstacleWithHP;
 import pl.psi.obstacles.Obstacles;
 
@@ -19,25 +20,25 @@ public class Board
 {
     private static final int MAX_WITDH = 14;
     private final BiMap< Point, Creature > map = HashBiMap.create();
-    private final Obstacles obstacle;
     private  final HashMap<Point,ObstacleWithHP> obstaclesWithHP = new HashMap<>();
+    private  final HashMap<Point, Obstacle> obstacles = new HashMap<>();
 
 
 
 
-    public Board( final List< Creature > aCreatures1, final List< Creature > aCreatures2,
-                  Obstacles obstacle )
+
+    public Board( final List< Creature > aCreatures1, final List< Creature > aCreatures2)
     {
         addCreatures( aCreatures1, 0 );
         addCreatures( aCreatures2, MAX_WITDH );
-        this.obstacle = obstacle;
-        addRandomObstaclesWithHP(2);
+        addRandomObstaclesWithHP();
+        addRandomObstacles();
     }
 
-    public void addRandomObstaclesWithHP(int amount) {
+     void addRandomObstaclesWithHP() {
         Random random = new Random();
 
-        while (obstaclesWithHP.size() < amount) {
+        while (obstaclesWithHP.size() < 2) {
             int x = random.nextInt(MAX_WITDH);
             int y = random.nextInt(MAX_HEIGHT);
 
@@ -46,6 +47,20 @@ public class Board
                 y = random.nextInt(MAX_HEIGHT);
             }
             obstaclesWithHP.put(new Point(x, y),new ObstacleWithHP(1));
+        }
+    }
+     void addRandomObstacles() {
+        Random random = new Random();
+
+        while (obstacles.size() < 9 ) {
+            int x = random.nextInt(MAX_WITDH);
+            int y = random.nextInt(MAX_HEIGHT);
+
+            while (x == 0 && y == 1 )  {
+                x = random.nextInt(MAX_WITDH);
+                y = random.nextInt(MAX_HEIGHT);
+            }
+            obstacles.put(new Point(x, y),new Obstacle());
         }
     }
 
@@ -75,7 +90,7 @@ public class Board
 
     boolean canMove( final Creature aCreature, final Point aPoint )
     {
-        if(obstacle.isObstacle(aPoint) || obstaclesWithHP.containsKey(aPoint)){
+        if(obstacles.containsKey(aPoint) || obstaclesWithHP.containsKey(aPoint)){
             return  false;
         }
         final Point oldPosition = getPosition( aCreature );
@@ -91,6 +106,10 @@ public class Board
 
     public boolean isObstacleWithHP(Point aPoint) {
         return obstaclesWithHP.containsKey(aPoint);
+
+    }
+    public boolean isObstacle(Point aPoint) {
+        return obstacles.containsKey(aPoint);
 
     }
 }
