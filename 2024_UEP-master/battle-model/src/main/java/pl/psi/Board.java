@@ -10,6 +10,7 @@ import pl.psi.obstacles.Obstacle;
 import pl.psi.obstacles.ObstaclesWithHP;
 
 import static pl.psi.obstacles.ObstaclesIF.MAX_HEIGHT;
+import static pl.psi.obstacles.ObstaclesIF.maxHP;
 
 
 /**
@@ -47,14 +48,16 @@ public class Board
             }
         }
 
-        // Add obstacles with HP
         while (obstaclesWithHPMap.size() < 2) {
             int x = random.nextInt(MAX_WITDH);
             int y = random.nextInt(MAX_HEIGHT);
             Point point = new Point(x, y);
 
-            if (!obstaclesWithHPMap.containsKey(point) && !regularObstaclesMap.containsKey(point)) {
-                obstaclesWithHPMap.put(point, new ObstaclesWithHP(1));
+            if (!obstaclesWithHPMap.containsKey(point) &&
+                    !regularObstaclesMap.containsKey(point) &&
+                    x != 0 &&
+                    y != 1) {
+                obstaclesWithHPMap.put(point, new ObstaclesWithHP(maxHP));
             }
         }
     }

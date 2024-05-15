@@ -14,8 +14,4 @@ class DefaultDamageCalculator extends AbstractCalculateDamageStrategy
         super( aRand );
     }
 
-    @Override
-    public int calculateDamage(Creature attacker, ObstaclesWithHP obstacle) {
-        return attacker.getAttack();
-    }
 }

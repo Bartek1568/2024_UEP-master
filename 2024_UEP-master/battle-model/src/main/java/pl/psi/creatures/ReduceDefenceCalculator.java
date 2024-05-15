@@ -24,8 +24,5 @@ class ReduceDefenceCalculator extends AbstractCalculateDamageStrategy
         return (int)(aDefender.getArmor() * factor);
     }
 
-    @Override
-    public int calculateDamage(Creature aAttacker, ObstaclesWithHP obstaclesWithHP) {
-        return 0;
-    }
+
 }

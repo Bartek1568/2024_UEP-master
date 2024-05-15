@@ -22,8 +22,7 @@ class BoardTest
             .build();
         final List< Creature > c1 = List.of( creature );
         final List< Creature > c2 = List.of();
-        final Obstacles obstacle = new Obstacles();
-        final ObstaclesWithHP obstaclesWithHP = new ObstaclesWithHP(100);
+
 
 
         final Board board = new Board( c1, c2);

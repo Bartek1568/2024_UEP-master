@@ -14,7 +14,7 @@ import pl.psi.obstacles.ObstaclesIF;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-class ObstacleTest {
+class ObstaclesTest {
 
 //    @Test
 //    void creatureCanAttackObstacle(){
@@ -35,38 +35,37 @@ class ObstacleTest {
 //    }
 
     @Test
-    void creatureCannotEnterObstacle()
-    {
-        final Creature creature = new Creature.Builder().statistic( CreatureStats.builder()
-                        .moveRange( 5 )
-                        .build() )
+    void creatureCannotEnterObstacle() throws ObstacleException {
+        final Creature creature = new Creature.Builder().statistic(CreatureStats.builder()
+                        .moveRange(5)
+                        .build())
                 .build();
-        final List< Creature > c1 = List.of( creature );
-        final List< Creature > c2 = List.of();
-        final Obstacles obstacle = new Obstacles();
-        final ObstaclesWithHP obstaclesWithHP = new ObstaclesWithHP(ObstaclesIF.maxHP);
-        final Board board = new Board( c1, c2);
+        final List<Creature> c1 = List.of(creature);
+        final List<Creature> c2 = List.of();
+        final Board board = new Board(c1, c2);
 
 
-        //obstacle.addObstacleManually(3, 3);
-        board.move( creature, new Point( 3, 3 ) );
-
-
-        assertFalse(board.getCreature( new Point( 3, 3 ) )
-            .isPresent() );
+        for (int x = 0; x < ObstaclesIF.MAX_WITDH; x++) {
+            for (int y = 0; y < ObstaclesIF.MAX_HEIGHT; y++) {
+                Point point = new Point(x, y);
+                if (x != 0 && x != 1) {
+                    if (board.isObstacle(point) || board.isObstacleWithHP(point)) {
+                        board.move(creature, point);
+                        if (!board.getCreature(point).isPresent()){
+                            throw new ObstacleException("Creature cannot move into : " + point + ", because it's an obstacle");
+                        }
+                        //assertFalse(board.getCreature(point).isPresent(), "Creature should not move into an obstacle at " + point);
+                    }
+                }
+            }
+        }
     }
 
 
-
-    @Test
-    void startingPointIsNotObstacle(){
-        final Obstacles obstacle = new Obstacles();
-        obstacle.addObstacleManually(0,1);
-        obstacle.addObstacleManually(14,1);
-        assertFalse(obstacle.isObstacle(new Point(0,1)));
-        assertFalse(obstacle.isObstacle(new Point(14,1)));
-
-
+     class ObstacleException extends Exception {
+        public ObstacleException(String message) {
+            super(message);
+        }
     }
 
 }

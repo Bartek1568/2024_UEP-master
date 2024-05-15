@@ -87,9 +87,9 @@ public class GameEngine {
             return distance < 2 && distance > 0;
         }
 
-//        if (obstacle.isObstacleWithHP(point)) {
-//            return distance < 2 && distance > 0;
-//        }
+        if (board.isObstacleWithHP(point)) {
+            return distance < 2 && distance > 0;
+        }
 
         return false;
     }
