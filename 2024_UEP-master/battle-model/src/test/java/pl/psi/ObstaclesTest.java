@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 
 import pl.psi.creatures.Creature;
 import pl.psi.creatures.CreatureStats;
-import pl.psi.obstacles.Obstacles;
 import pl.psi.obstacles.ObstaclesIF;
 import pl.psi.obstacles.ObstaclesWithHP;
 
@@ -28,7 +27,10 @@ class ObstaclesTest {
         final ObstaclesWithHP obstacleWithHP = new ObstaclesWithHP(ObstaclesIF.maxHP,board);
 
 
-        creature.attackObstacle(obstacleWithHP,aPoint);
+
+
+
+        creature.attackObstacle(obstacleWithHP);
         assertEquals(100 , obstacleWithHP.getHP());
 
 

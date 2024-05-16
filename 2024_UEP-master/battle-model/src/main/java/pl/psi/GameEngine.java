@@ -5,7 +5,6 @@ import java.beans.PropertyChangeSupport;
 import java.util.Optional;
 
 import pl.psi.creatures.Creature;
-import pl.psi.obstacles.ObstaclesIF;
 import pl.psi.obstacles.ObstaclesWithHP;
 
 
@@ -18,7 +17,9 @@ public class GameEngine {
     private final TurnQueue turnQueue;
     private final Board board;
 
+
     private final PropertyChangeSupport observerSupport = new PropertyChangeSupport(this);
+
 
 
     public  GameEngine(final Hero aHero1, final Hero aHero2) {
@@ -34,8 +35,11 @@ public class GameEngine {
             Creature defender = optionalDefender.get();
             turnQueue.getCurrentCreature().attack(defender);
         } else if (board.isObstacleWithHP(point)) {
-            ObstaclesWithHP obstacleWithHP = new ObstaclesWithHP(ObstaclesIF.maxHP,board);
-            turnQueue.getCurrentCreature().attackObstacle( obstacleWithHP,point);
+            Optional<ObstaclesWithHP> optionalObstacle = board.getObstacleWithHP(point);
+            if (optionalObstacle.isPresent()) {
+                ObstaclesWithHP obstacleWithHP = optionalObstacle.get();
+                turnQueue.getCurrentCreature().attackObstacle(obstacleWithHP, point);
+            }
         }
         pass();
     }

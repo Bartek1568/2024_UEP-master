@@ -1,6 +1,5 @@
 package pl.psi.creatures;
 
-import pl.psi.obstacles.ObstaclesWithHP;
 
 import java.util.Random;
 

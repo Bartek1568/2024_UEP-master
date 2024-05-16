@@ -112,9 +112,12 @@ public class Board
 
     }
 
-    public void removeFromTheMapObstacleWithHP(Point aPoint) {
+     public void removeFromTheMapObstacleWithHP(Point aPoint) {
         if (isObstacleWithHP(aPoint)){
             obstaclesWithHPMap.remove(aPoint);
         }
+    }
+    public Optional<ObstaclesWithHP> getObstacleWithHP(Point point) {
+        return Optional.ofNullable(obstaclesWithHPMap.get(point));
     }
 }
