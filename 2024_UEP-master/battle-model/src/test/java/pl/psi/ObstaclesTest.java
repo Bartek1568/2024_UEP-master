@@ -8,31 +8,31 @@ import org.junit.jupiter.api.Test;
 import pl.psi.creatures.Creature;
 import pl.psi.creatures.CreatureStats;
 import pl.psi.obstacles.Obstacles;
-import pl.psi.obstacles.ObstaclesWithHP;
 import pl.psi.obstacles.ObstaclesIF;
+import pl.psi.obstacles.ObstaclesWithHP;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 
 class ObstaclesTest {
 
-//    @Test
-//    void creatureCanAttackObstacle(){
-//        final Creature creature = new Creature.Builder().statistic( CreatureStats.builder()
-//                        .moveRange( 5 )
-//                        .build() )
-//                .build();
-//        final List< Creature > c1 = List.of( creature );
-//        final List< Creature > c2 = List.of();
-//        final ObstacleWithHP obstacleWithHP = new ObstacleWithHP(100);
-//        final Obstacles obstacle = new Obstacles();
-//        final Board board = new Board( c1, c2 , obstacle,obstacleWithHP);
-//
-//        creature.attackObstacle(obstacle,Point point);
-//        assertEquals(obstacleWithHP.getHP() == 100 , obstacleWithHP.getHP());
-//
-//
-//    }
+    @Test
+    void creatureCanAttackObstacle(){
+        final Creature creature = new Creature.Builder().statistic( CreatureStats.builder()
+                        .moveRange( 5 )
+                        .build() )
+                .build();
+        final List< Creature > c1 = List.of( creature );
+        final List< Creature > c2 = List.of();
+        final Board board = new Board( c1, c2);
+        final ObstaclesWithHP obstacleWithHP = new ObstaclesWithHP(ObstaclesIF.maxHP,board);
+
+
+        creature.attackObstacle(obstacleWithHP,aPoint);
+        assertEquals(100 , obstacleWithHP.getHP());
+
+
+    }
 
     @Test
     void creatureCannotEnterObstacle() throws ObstacleException {

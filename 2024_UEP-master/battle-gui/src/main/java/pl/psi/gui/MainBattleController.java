@@ -67,6 +67,7 @@ public class MainBattleController implements PropertyChangeListener
                     mapTile.addEventHandler( MouseEvent.MOUSE_CLICKED,
                         ( e ) -> { gameEngine.attack( currentPoint ); } );
                 }
+
                 gridMap.add( mapTile, x, y );
             }
         }

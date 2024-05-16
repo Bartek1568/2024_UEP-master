@@ -57,7 +57,7 @@ public class Board
                     !regularObstaclesMap.containsKey(point) &&
                     x != 0 &&
                     y != 1) {
-                obstaclesWithHPMap.put(point, new ObstaclesWithHP(maxHP));
+                obstaclesWithHPMap.put(point, new ObstaclesWithHP(maxHP,this));
             }
         }
     }
@@ -110,5 +110,11 @@ public class Board
     public boolean isObstacle(Point aPoint) {
         return regularObstaclesMap.containsKey(aPoint);
 
+    }
+
+    public void removeFromTheMapObstacleWithHP(Point aPoint) {
+        if (isObstacleWithHP(aPoint)){
+            obstaclesWithHPMap.remove(aPoint);
+        }
     }
 }

@@ -12,11 +12,13 @@ import java.util.Random;
 
 import lombok.Setter;
 
+import pl.psi.Point;
 import pl.psi.TurnQueue;
 
 import com.google.common.collect.Range;
 
 import lombok.Getter;
+import pl.psi.obstacles.ObstaclesWithHP;
 
 
 /**
@@ -52,12 +54,11 @@ public class Creature implements PropertyChangeListener {
         }
     }
 
-//    public void attackObstacle(ObstaclesWithHP obstaclesWithHP, Point point) {
-//        if (isAlive()) {
-//            final int damage = getCalculator().calculateDamage(this);
-//      //      obstacleWithHP.takeDamage(point,damage);
-//        }
-//    }
+    public void attackObstacle(ObstaclesWithHP obstacleWithHP, Point aPoint) {
+            final int damage = getCalculator().calculateDamageToObstacle(this,obstacleWithHP);
+            obstacleWithHP.takeDamage(aPoint, damage);
+
+    }
 
     public boolean isAlive() {
         return getAmount() > 0;

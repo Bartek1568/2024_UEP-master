@@ -1,5 +1,7 @@
 package pl.psi.creatures;
 
+import pl.psi.obstacles.ObstaclesWithHP;
+
 import java.util.Random;
 
 abstract class AbstractCalculateDamageStrategy implements DamageCalculatorIf
@@ -54,6 +56,19 @@ abstract class AbstractCalculateDamageStrategy implements DamageCalculatorIf
         }
         return (int)(aAttacker.getAmount() * oneCreatureDamageToDeal);
     }
+
+    public int calculateDamageToObstacle(Creature attacker, ObstaclesWithHP obstaclesWithHP) {
+        final int randValue = rand.nextInt(attacker.getDamage().upperEndpoint() - attacker.getDamage().lowerEndpoint() + 1)
+                + attacker.getDamage().lowerEndpoint();
+
+        double oneCreatureDamageToDeal = randValue;
+
+        if (oneCreatureDamageToDeal < 0) {
+            oneCreatureDamageToDeal = 0;
+        }
+        return (int) (attacker.getAmount() * oneCreatureDamageToDeal);
+    }
+
 
     protected int getArmor( final Creature aDefender )
     {

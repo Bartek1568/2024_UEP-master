@@ -1,33 +1,31 @@
 package pl.psi.obstacles;
 
+import pl.psi.Board;
+import pl.psi.Point;
+
 
 public class ObstaclesWithHP implements ObstaclesIF {
 
     private int maxHp;
     private int currentHp;
+    private final Board board;
 
 
-
-
-    public ObstaclesWithHP(int maxHp) {
+    public ObstaclesWithHP(int maxHp, Board board) {
         this.maxHp = maxHp;
-        this.currentHp = maxHp;
-
+        this.board = board;
     }
 
+    public void takeDamage(Point aPoint,int damage) {
 
-
-
-    public void takeDamage(int damage) {
-
+        currentHp -= damage;
+        if (currentHp <= 0) {
+            currentHp = 0;
+            board.removeFromTheMapObstacleWithHP(aPoint);
+        }
     }
 
-//    public double getHP(Point point) {
-//        if (obstaclesWithHP.containsKey(point)) {
-//            return obstaclesWithHP.get(point).currentHp;
-//        } else {
-//            return 0;
-//        }
-//    }
-
+    public int getHP() {
+        return currentHp;
+    }
 }
