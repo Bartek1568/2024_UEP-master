@@ -89,7 +89,9 @@ public class Board
 
     boolean canMove( final Creature aCreature, final Point aPoint )
     {
-        if(regularObstaclesMap.containsKey(aPoint) || obstaclesWithHPMap.containsKey(aPoint)){
+        if(regularObstaclesMap.containsKey(aPoint) ||
+                obstaclesWithHPMap.containsKey(aPoint) ||
+                map.containsKey(aPoint)){
             return  false;
         }
         final Point oldPosition = getPosition( aCreature );

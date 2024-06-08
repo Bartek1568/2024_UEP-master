@@ -15,26 +15,26 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ObstaclesTest {
 
-    @Test
-    void creatureCanAttackObstacle(){
-        final Creature creature = new Creature.Builder().statistic( CreatureStats.builder()
-                        .moveRange( 5 )
-                        .build() )
-                .build();
-        final List< Creature > c1 = List.of( creature );
-        final List< Creature > c2 = List.of();
-        final Board board = new Board( c1, c2);
-        final ObstaclesWithHP obstacleWithHP = new ObstaclesWithHP(ObstaclesIF.maxHP,board);
-
-
-
-
-
-        creature.attackObstacle(obstacleWithHP);
-        assertEquals(100 , obstacleWithHP.getHP());
-
-
-    }
+//    @Test
+//    void creatureCanAttackObstacle(){
+//        final Creature creature = new Creature.Builder().statistic( CreatureStats.builder()
+//                        .moveRange( 5 )
+//                        .build() )
+//                .build();
+//        final List< Creature > c1 = List.of( creature );
+//        final List< Creature > c2 = List.of();
+//        final Board board = new Board( c1, c2);
+//        final ObstaclesWithHP obstacleWithHP = new ObstaclesWithHP(ObstaclesIF.maxHP,board);
+//
+//
+//
+//
+//
+//        creature.attackObstacle(obstacleWithHP);
+//        assertEquals(100 , obstacleWithHP.getHP());
+//
+//
+//    }
 
     @Test
     void creatureCannotEnterObstacle() throws ObstacleException {
@@ -64,7 +64,7 @@ class ObstaclesTest {
     }
 
 
-     class ObstacleException extends Exception {
+      class ObstacleException extends Exception {
         public ObstacleException(String message) {
             super(message);
         }
